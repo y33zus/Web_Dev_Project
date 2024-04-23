@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Movie } from '../../../models';
 import { MovieService } from '../movie.service';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-movies',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule, RouterOutlet, RouterModule],
   templateUrl: './movies.component.html',
   styleUrl: './movies.component.css'
 })

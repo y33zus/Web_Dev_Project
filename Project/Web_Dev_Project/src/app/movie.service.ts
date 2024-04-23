@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class MovieService {
-  private apiUrl = 'https://my-json-server.typicode.com/horizon-code-academy/fake-movies-api/movies';
+  private apiUrl = 'http://127.0.0.1:8000/movies/';
 
   constructor(private http: HttpClient) { }
 

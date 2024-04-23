@@ -9,6 +9,7 @@ import { RecomendationComponent } from './recomendation/recomendation.component'
 import { WatchListComponent } from './watch-list/watch-list.component';
 import { WatchedListComponent } from './watched-list/watched-list.component';
 import { MoviesComponent } from './movies/movies.component';
+import { MovieDetailsComponent } from './movie-details/movie-details.component';
 
 
 @Component({
@@ -16,7 +17,7 @@ import { MoviesComponent } from './movies/movies.component';
   standalone: true,
   imports: [RouterOutlet, CommonModule, HomeComponent, ContentComponent,
     LoggingInComponent, PersonalTopComponent, RecomendationComponent,
-    WatchListComponent, WatchedListComponent, MoviesComponent
+    WatchListComponent, WatchedListComponent, MoviesComponent, MovieDetailsComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
