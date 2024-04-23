@@ -1,8 +1,9 @@
 export interface Movie{
-    Title: string,
-    Year: string,
-    Runtime: string,
-    Poster: string
+    name: string,
+    year_of_publishing: number,
+    director: string,
+    genre: string,
+    photo: string
 }
 
 export interface Recommendation{
