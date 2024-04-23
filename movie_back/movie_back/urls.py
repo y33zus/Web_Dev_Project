@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from movie_app.views import WatchListView, WatchedListView
+from movie_app.views import WatchListView, WatchedListView, PersonalTopView, movie_list, movie_detail
 
 
 # jwt 
@@ -34,7 +34,13 @@ urlpatterns = [
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 
     # views
-    path('api/watchlist/', WatchListView.as_view(), name='watchlist'),
-    path('api/watchedlist/', WatchedListView.as_view(), name='watchedlist'),
+    path('watchlist/', WatchListView.as_view(), name='watchlist'),
+    path('watchedlist/', WatchedListView.as_view(), name='watchedlist'),
+    path('personaltop/', PersonalTopView.as_view(), name='personaltop'),
+    path('personaltop/<int:pk>/', PersonalTopView.as_view(), name='personaltop-detail'),
+    
+    #model
+    path('movies/', movie_list, name='movie-list'),
+    path('movies/<int:pk>/', movie_detail, name='movie-detail'),
 
 ]
