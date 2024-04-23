@@ -2,16 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { Movie } from '../../../models';
 import { MovieService } from '../movie.service';
 import { CommonModule } from '@angular/common';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router';
+
 
 @Component({
-  selector: 'app-movies',
+  selector: 'app-movie-details',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterModule],
-  templateUrl: './movies.component.html',
-  styleUrl: './movies.component.css'
+  imports: [CommonModule, RouterModule],
+  templateUrl: './movie-details.component.html',
+  styleUrl: './movie-details.component.css'
 })
-export class MoviesComponent implements OnInit {
+export class MovieDetailsComponent implements OnInit {
   movies: Movie[] = [];
 
   constructor(private movieService: MovieService){

@@ -6,6 +6,7 @@ import { WatchedListComponent } from './watched-list/watched-list.component';
 import { RecomendationComponent } from './recomendation/recomendation.component';
 import { ContentComponent } from './content/content.component';
 import { MoviesComponent } from './movies/movies.component';
+import { MovieDetailsComponent } from './movie-details/movie-details.component';
 
 export const routes: Routes = [
     {path: 'home', component: HomeComponent },
@@ -14,5 +15,6 @@ export const routes: Routes = [
     {path: 'watched-list', component: WatchedListComponent },
     {path: 'recomendation', component: RecomendationComponent },
     {path: 'content', component: ContentComponent },
-    {path: 'movies', component: MoviesComponent}
+    {path: 'movies', component: MoviesComponent},
+    {path: 'movies/:id', component: MovieDetailsComponent}
 ];
