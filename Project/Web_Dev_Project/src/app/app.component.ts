@@ -8,6 +8,7 @@ import { PersonalTopComponent } from './personal-top/personal-top.component';
 import { RecomendationComponent } from './recomendation/recomendation.component';
 import { WatchListComponent } from './watch-list/watch-list.component';
 import { WatchedListComponent } from './watched-list/watched-list.component';
+import { MoviesComponent } from './movies/movies.component';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { WatchedListComponent } from './watched-list/watched-list.component';
   standalone: true,
   imports: [RouterOutlet, CommonModule, HomeComponent, ContentComponent,
     LoggingInComponent, PersonalTopComponent, RecomendationComponent,
-    WatchListComponent, WatchedListComponent
+    WatchListComponent, WatchedListComponent, MoviesComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
