@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from movie_app.views import WatchListView, WatchedListView, PersonalTopView, movie_list, movie_detail
+from movie_app.views import WatchListView, WatchedListView, PersonalTopView, movie_list, movie_detail, UserListView, UserDetailView, custom_login
 
 
 # jwt 
@@ -29,18 +29,26 @@ from rest_framework_simplejwt.views import (
 urlpatterns = [
     path('admin/', admin.site.urls),
     # jwt
+    path('api/login/', custom_login, name='custom_login'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 
+    #UPDATED
     # views
-    path('watchlist/', WatchListView.as_view(), name='watchlist'),
-    path('watchedlist/', WatchedListView.as_view(), name='watchedlist'),
-    path('personaltop/', PersonalTopView.as_view(), name='personaltop'),
-    path('personaltop/<int:pk>/', PersonalTopView.as_view(), name='personaltop-detail'),
+    path('watchlist/', WatchListView.as_view(), name='watchlist-list'),
+    path('watchedlist/', WatchedListView.as_view(), name='watchedlist-list'),
+    path('personaltop/', PersonalTopView.as_view(), name='personaltop-list'),
+    
+    #ADDED
+    path('personaltop/add/', PersonalTopView.as_view(), name='personaltop-add'),
+    path('personaltop/delete/<int:pk>/', PersonalTopView.as_view(), name='personaltop-delete'),
     
     #model
     path('movies/', movie_list, name='movie-list'),
     path('movies/<int:pk>/', movie_detail, name='movie-detail'),
 
+    #update for user
+    path('users/', UserListView.as_view(), name='user-list'),
+    path('users/<int:pk>/', UserDetailView.as_view(), name='user-detail'),
 ]

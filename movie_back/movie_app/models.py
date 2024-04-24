@@ -5,16 +5,29 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 #менеджер
 class UserManager(BaseUserManager):
-    def create_user(self, nickname, phone_number, password=None):
+    # UPDATE 
+    def create_user(self, nickname, phone_number, password=None, first_name=None, last_name=None):
         if not phone_number:
             raise ValueError('Users must have a phone number')
-        user = self.model(nickname=nickname, phone_number=phone_number)
+        user = self.model(
+            nickname=nickname,
+            phone_number=phone_number,
+            first_name=first_name,
+            last_name=last_name
+        )
         user.set_password(password)
         user.save(using=self._db)
         return user
 
+    #UPDATE
     def create_superuser(self, nickname, phone_number, password):
-        user = self.create_user(nickname, phone_number, password)
+        user = self.create_user(
+            nickname=nickname,
+            phone_number=phone_number,
+            password=password,
+            first_name="",
+            last_name="",
+        )
         user.is_admin = True
         user.save(using=self._db)
         return user
@@ -24,6 +37,10 @@ class User(AbstractBaseUser):
     nickname = models.CharField(max_length=255, unique=True)
     phone_number = models.CharField(max_length=255, unique=True)
     password = models.CharField(max_length=255)
+    
+    #update
+    first_name = models.CharField(max_length=255, null=True, blank=True)
+    last_name = models.CharField(max_length=255, null=True, blank=True)
     
     objects = UserManager()
     

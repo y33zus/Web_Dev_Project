@@ -17,7 +17,7 @@ export class MovieService {
   getMovie(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}${id}`);
   }
-
+ 
   addToWatchList(movieId: number, userId: number): Observable<any> {
     return this.http.post(`${this.watchUrl}/watch-list/add`, { movieId, userId });
   }

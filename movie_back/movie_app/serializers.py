@@ -7,18 +7,28 @@ class UserSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(write_only=True)
     
     class Meta:
-        model = User
-        fields = ['id', 'nickname', 'phone_number', 'password', 'confirm_password']
+        model = User                                                                #update
+        fields = ['id', 'nickname', 'phone_number', 'password', 'confirm_password', 'first_name', 'last_name']
         read_only_fields = ['id']
+        #update
+        extra_kwargs = {'password': {'write_only': True}}
+
         
     def create(self, validated_data):
         validated_data.pop('confirm_password', None)  # Удалить подтверждение пароля из данных
-        user = User.objects.create_user(
-            nickname=validated_data['nickname'],
-            phone_number=validated_data['phone_number'],
-            password=validated_data['password']
-        )
+        user = User.objects.create_user(**validated_data)
         return user
+    
+    # full method added
+    def update(self, instance, validated_data):
+        instance.nickname = validated_data.get('nickname', instance.nickname)
+        instance.phone_number = validated_data.get('phone_number', instance.phone_number)
+        instance.first_name = validated_data.get('first_name', instance.first_name)
+        instance.last_name = validated_data.get('last_name', instance.last_name)
+        if 'password' in validated_data:
+            instance.set_password(validated_data['password'])
+        instance.save()
+        return instance 
     
     def validate(self, data):
         if data['password'] != data['confirm_password']:

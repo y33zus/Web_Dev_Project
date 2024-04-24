@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import authenticate
 from rest_framework import status
 from rest_framework.views import APIView
@@ -13,22 +13,64 @@ from .serializers import UserSerializer, MovieSerializer, WatchListSerializer, W
 # Create your views here.
 
 
+# UPDATED 
 # jwt login
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def custom_login(request):
     phone_number = request.data.get('phone_number')
     password = request.data.get('password')
+
+    if not phone_number or not password:
+        return Response({"error": "Phone number and password are required."}, status=status.HTTP_400_BAD_REQUEST)
+
     user = authenticate(username=phone_number, password=password)
+    print(phone_number, password)
     if user:
         refresh = RefreshToken.for_user(user)
         return Response({
             'refresh': str(refresh),
             'access': str(refresh.access_token),
             'user_id': user.id
-        })
+        }, status=status.HTTP_200_OK)  
     else:
-        return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)    
+        return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)   
+ 
+ # NEW VIEW ADDED
+ 
+class UserListView(APIView):
+    def get(self, request):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class UserDetailView(APIView):
+    def get(self, request, pk):
+        user = get_object_or_404(User, pk=pk)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+
+    def put(self, request, pk):
+        user = get_object_or_404(User, pk=pk)
+        serializer = UserSerializer(user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        user = get_object_or_404(User, pk=pk)
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+ 
+ 
  
 # movie as fbv
 
