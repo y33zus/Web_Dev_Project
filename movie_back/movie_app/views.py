@@ -31,6 +31,53 @@ def custom_login(request):
         return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)    
  
 # movie as fbv
+
+@api_view(['GET', 'POST'])
+def movie_list(request):
+    if request.method == 'GET':
+        movies = Movie.objects.all()
+        serializer = MovieSerializer(movies, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = MovieSerializer(data=request.data)
+        if serializer.is_valid():
+            # Мы должны явно сохранить данные, вместо использования serializer.save()
+            data = serializer.validated_data
+            movie = Movie.objects.create(**data)
+            return Response(MovieSerializer(movie).data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def movie_detail(request, pk):
+    try:
+        movie = Movie.objects.get(pk=pk)
+    except Movie.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = MovieSerializer(movie)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = MovieSerializer(movie, data=request.data)
+        if serializer.is_valid():
+            # Обновляем каждое поле вручную
+            movie.name = serializer.validated_data.get('name', movie.name)
+            movie.year_of_publishing = serializer.validated_data.get('year_of_publishing', movie.year_of_publishing)
+            movie.director = serializer.validated_data.get('director', movie.director)
+            movie.genre = serializer.validated_data.get('genre', movie.genre)
+            movie.photo = serializer.validated_data.get('photo', movie.photo)
+            movie.save()
+            return Response(MovieSerializer(movie).data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        movie.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+'''
 @api_view(['GET', 'POST'])
 def movie_list(request):
     if request.method == 'GET':
@@ -69,11 +116,10 @@ def movie_detail(request, pk):
     elif request.method == 'DELETE':
         movie.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-    
+'''
 
 # views for models
 class UserView(APIView):
-    # anyone can create new account
     permission_classes = [AllowAny]
     
     def post(self, request):
@@ -88,6 +134,31 @@ class UserView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class WatchListView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        watchlist_items = WatchList.objects.filter(user=request.user).prefetch_related('movie')
+        # Теперь сериализуем items вручную для представления
+        serializer = WatchListSerializer(watchlist_items, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = WatchListSerializer(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            watchlist_item = serializer.save()
+            return Response(WatchListSerializer(watchlist_item).data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        try:
+            watchlist_item = WatchList.objects.get(user=request.user, pk=pk)
+            watchlist_item.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except WatchList.DoesNotExist:
+            return Response({'error': 'Watchlist item not found'}, status=status.HTTP_404_NOT_FOUND)
+
+'''
 class WatchListView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -110,7 +181,7 @@ class WatchListView(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
         except WatchList.DoesNotExist:
             return Response({'error': 'Watchlist item not found'}, status=status.HTTP_404_NOT_FOUND)
-        
+'''       
 
 
 class WatchedListView(APIView):
