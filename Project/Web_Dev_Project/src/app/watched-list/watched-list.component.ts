@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Watched_list } from '../../../models';
-import { WatchListService } from '../watch-list.service';
+import { MovieService } from '../movie.service';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
@@ -14,12 +14,12 @@ import { RouterOutlet } from '@angular/router';
 export class WatchedListComponent implements OnInit{
   movies: Watched_list[] = [];
 
-  constructor(private watchListService: WatchListService){
+  constructor(private MovieService: MovieService){
   
   }
 
   ngOnInit() {
-    this.watchListService.getMovies().subscribe(data => {
+    this.MovieService.getMovies().subscribe(data => {
       this.movies = data;
     });
   }

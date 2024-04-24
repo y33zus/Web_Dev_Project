@@ -15,10 +15,8 @@ export interface Recommendation{
 }
 
 export interface Watch_list{
-    Title: string,
-    Year: string,
-    Runtime: string,
-    Poster: string
+    user_id: number,
+    movie_id: number
 }
 
 export interface Watched_list{

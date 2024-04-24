@@ -7,6 +7,8 @@ import { RecomendationComponent } from './recomendation/recomendation.component'
 import { ContentComponent } from './content/content.component';
 import { MoviesComponent } from './movies/movies.component';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
+import { Component } from '@angular/core';
+import { LoggingInComponent } from './logging-in/logging-in.component';
 
 export const routes: Routes = [
     {path: 'home', component: HomeComponent },
@@ -16,5 +18,6 @@ export const routes: Routes = [
     {path: 'recomendation', component: RecomendationComponent },
     {path: 'content', component: ContentComponent },
     {path: 'movies', component: MoviesComponent},
-    {path: 'movies/:id', component: MovieDetailsComponent}
+    {path: 'movies/:id', component: MovieDetailsComponent},
+    {path: 'logging-in', component: LoggingInComponent}
 ];

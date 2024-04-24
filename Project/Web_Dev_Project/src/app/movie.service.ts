@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 })
 export class MovieService {
   private apiUrl = 'http://127.0.0.1:8000/movies/';
+  private watchUrl = 'http://127.0.0.1:8000/watchlist/'
 
   constructor(private http: HttpClient) { }
 
@@ -15,5 +16,13 @@ export class MovieService {
 
   getMovie(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}${id}`);
+  }
+ 
+  addToWatchList(movieId: number, userId: number): Observable<any> {
+    return this.http.post(`${this.watchUrl}/watch-list/add`, { movieId, userId });
+  }
+
+  removeFromWatchList(movieId: number, userId: number): Observable<any> {
+    return this.http.delete(`${this.watchUrl}/watch-list/remove/${userId}/${movieId}`);
   }
 }

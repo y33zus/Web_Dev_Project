@@ -4,3 +4,9 @@
         <a [routerLink]="['/movies/', movie.id ]">{{movie.name}}</a>>
     </li>
 </ul>
+
+<div>
+    <input [(ngModel)]="movieId" type="number" placeholder="Введите ID фильма">
+    <button (click)="addMovie()">Добавить в список</button>
+    <button (click)="removeMovie()">Удалить из списка</button>
+  </div>
