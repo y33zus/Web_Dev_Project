@@ -1,0 +1,13 @@
+body {
+    background-color: azure;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.container {
+    display: flex; /* Устанавливаем контейнеру flex-контейнером */
+  }
+  
+  .item {
+    flex-grow: 1; /* Устанавливаем элементам гибкость, чтобы они занимали все доступное пространство */
+    border: 1px solid black; /* Добавляем границу для наглядности */
+  }

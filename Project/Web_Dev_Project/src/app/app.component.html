@@ -1,8 +1,10 @@
-<header><div><a [routerLink]="[ '/movies' ]">See all the movies</a>
-  <a [routerLink]="[ '/personal-top' ]">See your personal-top</a>
-  <a [routerLink]="[ '/watch-list' ]">See your watch-list</a>
-  <a [routerLink]="[ '/watched-list' ]">See your watched list</a>
-  <a [routerLink]="[ '/recommendation' ]">Get your reccomendation</a></div></header>
+<body><header><div class = "container"><a [routerLink]="[ '/movies' ]" class = "item">See all the movies</a>
+  <a [routerLink]="[ '/personal-top' ]" class = "item">See your personal-top</a>
+  <a [routerLink]="[ '/watch-list' ]" class = "item">See your watch-list</a>
+  <a [routerLink]="[ '/watched-list' ]" class = "item">See your watched list</a>
+  <a [routerLink]="[ '/recommendation' ]" class = "item">Get your reccomendation</a>
+  <a [routerLink]="[ '/logging-in' ]" class = "item">Log in</a></div>
+</header>
 
 <h1>{{ title }}</h1>
 <ul>
@@ -12,3 +14,4 @@
 </ul>
 
 <router-outlet></router-outlet>
+</body>
