@@ -32,3 +32,8 @@ export interface Personal_top{
     Runtime: string,
     Poster: string
 }
+
+export interface Token { 
+    access: string; 
+    refresh: string; 
+}

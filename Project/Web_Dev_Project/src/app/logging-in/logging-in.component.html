@@ -1,8 +1,8 @@
 <p>logging-in works!</p>
-<form (ngSubmit)="login()">
+<ng-container *ngIf="!logged"> <form (ngSubmit)="login()">
     <div>
-      <label for="username">Username:</label>
-      <input type="text" id="username" [(ngModel)]="username" name="username" required>
+      <label for="phone_number">Phone number:</label>
+      <input type="text" id="phone_number" [(ngModel)]="phone_number" name="phone_number" required>
     </div>
     <div>
       <label for="password">Password:</label>
@@ -10,4 +10,7 @@
     </div>
     <button type="submit">Login</button>
   </form>
-  
+</ng-container>
+
+<ng-container *ngIf="logged"><h1>Oh zrya ya suda polez</h1>
+</ng-container>

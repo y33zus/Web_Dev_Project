@@ -1,10 +1,10 @@
-<body><header><div class = "container"><a [routerLink]="[ '/movies' ]" class = "item">See all the movies</a>
+  <div class = "container"><a [routerLink]="[ '/movies' ]" class = "item">See all the movies</a>
   <a [routerLink]="[ '/personal-top' ]" class = "item">See your personal-top</a>
   <a [routerLink]="[ '/watch-list' ]" class = "item">See your watch-list</a>
   <a [routerLink]="[ '/watched-list' ]" class = "item">See your watched list</a>
   <a [routerLink]="[ '/recommendation' ]" class = "item">Get your reccomendation</a>
-  <a [routerLink]="[ '/logging-in' ]" class = "item">Log in</a></div>
-</header>
+  <a [routerLink]="[ '/logging-in' ]" class = "item">Log in</a>
+</div>
 
 <h1>{{ title }}</h1>
 <ul>
@@ -14,4 +14,3 @@
 </ul>
 
 <router-outlet></router-outlet>
-</body>

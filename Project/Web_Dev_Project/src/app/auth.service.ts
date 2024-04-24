@@ -1,19 +1,29 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Token } from '../../models';
+import { response } from 'express';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private tokenKey = 'auth_token';
+  private tokenKey = 'auth_token'; 
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
+  login(phone_number:string,password:string): Observable<Token> { 
+    return this.http.post<Token>(`{http://127.0.0.1:8000/api/login/}`, {phone_number,password}).subscribe(
+      response => {
+        console.log(response); // Убедитесь, что токен получен
+        localStorage.setItem(this.tokenKey, ));
+  }
   saveToken(token: string): void {
     localStorage.setItem(this.tokenKey, token);
   }
 
   getToken(): string | null {
-    return localStorage.getItem(this.tokenKey);
+    return localStorage.getItem("access");
   }
 
   isAuthenticated(): boolean {

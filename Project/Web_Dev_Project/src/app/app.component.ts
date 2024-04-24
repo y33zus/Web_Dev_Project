@@ -1,6 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { ContentComponent } from './content/content.component';
 import { LoggingInComponent } from './logging-in/logging-in.component';
@@ -19,7 +19,7 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [RouterOutlet, CommonModule, HomeComponent, ContentComponent,
     LoggingInComponent, PersonalTopComponent, RecomendationComponent,
-    WatchListComponent, WatchedListComponent, MoviesComponent, MovieDetailsComponent, RouterModule, HttpClientModule, FormsModule
+    WatchListComponent, WatchedListComponent, MoviesComponent, MovieDetailsComponent, RouterModule, HttpClientModule, FormsModule, RouterLink, RouterLinkActive
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
