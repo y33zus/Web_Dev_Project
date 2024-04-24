@@ -13,10 +13,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(phone_number:string,password:string): Observable<Token> { 
-    return this.http.post<Token>(`{http://127.0.0.1:8000/api/login/}`, {phone_number,password}).subscribe(
-      response => {
-        console.log(response); // Убедитесь, что токен получен
-        localStorage.setItem(this.tokenKey, ));
+    return this.http.post<Token>(`{http://127.0.0.1:8000/api/login/}`, {phone_number,password})
   }
   saveToken(token: string): void {
     localStorage.setItem(this.tokenKey, token);
