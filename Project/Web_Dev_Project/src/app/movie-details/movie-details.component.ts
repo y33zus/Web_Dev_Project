@@ -3,6 +3,7 @@ import { Movie } from '../../../models';
 import { MovieService } from '../movie.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -14,14 +15,19 @@ import { RouterModule } from '@angular/router';
 })
 export class MovieDetailsComponent implements OnInit {
   movies: Movie[] = [];
+  movie!: Movie;
 
-  constructor(private movieService: MovieService){
+  constructor(private movieService: MovieService,
+    private route: ActivatedRoute){
   
   }
 
   ngOnInit() {
-    this.movieService.getMovies().subscribe(data => {
-      this.movies = data;
+    this.route.params.subscribe(params => {
+      const id = +params['id'];
+      this.movieService.getMovie(id).subscribe(movie => {
+        this.movie = movie;
+      });
     });
   }
 
