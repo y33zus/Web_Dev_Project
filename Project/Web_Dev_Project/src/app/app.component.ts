@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { ContentComponent } from './content/content.component';
 import { LoggingInComponent } from './logging-in/logging-in.component';
@@ -17,7 +17,7 @@ import { MovieDetailsComponent } from './movie-details/movie-details.component';
   standalone: true,
   imports: [RouterOutlet, CommonModule, HomeComponent, ContentComponent,
     LoggingInComponent, PersonalTopComponent, RecomendationComponent,
-    WatchListComponent, WatchedListComponent, MoviesComponent, MovieDetailsComponent
+    WatchListComponent, WatchedListComponent, MoviesComponent, MovieDetailsComponent, RouterModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

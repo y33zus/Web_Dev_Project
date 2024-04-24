@@ -1,3 +1,9 @@
+<header><div><a [routerLink]="[ '/movies' ]">See all the movies</a>
+  <a [routerLink]="[ '/personal-top' ]">See your personal-top</a>
+  <a [routerLink]="[ '/watch-list' ]">See your watch-list</a>
+  <a [routerLink]="[ '/watched-list' ]">See your watched list</a>
+  <a [routerLink]="[ '/recommendation' ]">Get your reccomendation</a></div></header>
+
 <h1>{{ title }}</h1>
 <ul>
   <li *ngFor="let item of niggers">
@@ -5,11 +11,4 @@
   </li>
 </ul>
 
-<!--<app-home></app-home>
-<app-content></app-content>
-<app-logging-in></app-logging-in>
-<app-personal-top></app-personal-top>
-<app-recomendation></app-recomendation>
-<app-watch-list></app-watch-list>
-<app-watched-list></app-watched-list>-->
-<app-movies></app-movies>
+<router-outlet></router-outlet>
