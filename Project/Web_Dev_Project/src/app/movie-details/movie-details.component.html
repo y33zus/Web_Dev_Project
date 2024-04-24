@@ -1,11 +1,19 @@
 <p>movie-details works!</p>
-<ul>   
-    <li>
-        <h3>{{ movie.name }}, {{ movie.year_of_publishing }}, {{ movie.director }}, {{ movie.genre }}</h3>
-    </li>
-</ul>
+<div class="movie-container">
+    <div class="image-container">
+      <img src="{{ movie.photo }}" alt="Изображение фильма">
+    </div>
+    <div class="details-container">
+      <h2>{{ movie.name }}</h2>
+      <ul>
+        <li><strong>Genre:</strong> {{ movie.genre }}</li>
+        <li><strong>Director:</strong> {{ movie.director }}</li>
+        <li><strong>Year:</strong> {{ movie.year_of_publishing }}</li>
+      </ul>
+    </div>
+  </div>
 
 <div>
-    <button (click)="addMovie()">Добавить в список</button>
-    <button (click)="removeMovie()">Удалить из списка</button>
+    <button (click)="addMovie()" class="add_button">Добавить в список</button>
+    <button (click)="removeMovie()" class="delete_button">Удалить из списка</button>
   </div>
