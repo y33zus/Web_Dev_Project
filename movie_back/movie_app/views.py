@@ -13,22 +13,28 @@ from .serializers import UserSerializer, MovieSerializer, WatchListSerializer, W
 # Create your views here.
 
 
+# UPDATED 
 # jwt login
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def custom_login(request):
     phone_number = request.data.get('phone_number')
     password = request.data.get('password')
+
+    if not phone_number or not password:
+        return Response({"error": "Phone number and password are required."}, status=status.HTTP_400_BAD_REQUEST)
+
     user = authenticate(username=phone_number, password=password)
+    print(phone_number, password)
     if user:
         refresh = RefreshToken.for_user(user)
         return Response({
             'refresh': str(refresh),
             'access': str(refresh.access_token),
             'user_id': user.id
-        })
+        }, status=status.HTTP_200_OK)  
     else:
-        return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)    
+        return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)   
  
  # NEW VIEW ADDED
  
