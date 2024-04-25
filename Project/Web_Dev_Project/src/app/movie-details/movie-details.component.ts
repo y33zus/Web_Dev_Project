@@ -17,7 +17,9 @@ export class MovieDetailsComponent implements OnInit {
   movie!: Movie;
   movieId!: number;
   userId!: number;
-  isInThisUserList: boolean = false;
+  isInThisWatchList: boolean = false;
+  isInThisWatchedList: boolean = false;
+  isInThisPersonalList: boolean = false;
 
   constructor(private movieService: MovieService, private route: ActivatedRoute) { }
 
@@ -30,20 +32,32 @@ export class MovieDetailsComponent implements OnInit {
     });
   }
 
-  checkIfMovieInList() {
-    this.movieService.isInThisList(this.movieId).subscribe(isInList => {
-      this.isInThisUserList = isInList;
+  checkIfMovieInWatchList() {
+    this.movieService.isInWatchList(this.movieId).subscribe(isInList => {
+      this.isInThisWatchList = isInList;
+    });
+  }
+
+  checkIfMovieInWatchedList() {
+    this.movieService.isInWatchedList(this.movieId).subscribe(isInList => {
+      this.isInThisWatchedList = isInList;
+    });
+  }
+
+  checkIfMovieInPersonalList() {
+    this.movieService.isInPersonalList(this.movieId).subscribe(isInList => {
+      this.isInThisPersonalList = isInList;
     });
   }
 
   addMovieToWatchList() {
     this.movieService.addToWatchList(this.movieId, this.userId).subscribe({
       next: (response) => {
-        this.isInThisUserList = false;
+        this.isInThisWatchList = false;
         alert('Movie added to Watch List');
       },
       error: (error) => {
-        this.isInThisUserList = true;
+        this.isInThisWatchList = true;
         alert('This movie is already in your Watch List');
         console.error(error);
       }
@@ -53,11 +67,11 @@ export class MovieDetailsComponent implements OnInit {
   removeMovieFromWatchList() {
     this.movieService.removeFromWatchList(this.movieId, this.userId).subscribe({
       next: (response) => {
-        this.isInThisUserList = true;
+        this.isInThisWatchList = true;
         alert('Movie removed from Watch List');
       },
       error: (error) => {
-        this.isInThisUserList = false;
+        this.isInThisWatchList = false;
         alert('Movie is not in your Watch List');
         console.error(error);
       }
@@ -67,11 +81,11 @@ export class MovieDetailsComponent implements OnInit {
   addMovieToWatchedList() {
     this.movieService.addToWatchedList(this.movieId, this.userId).subscribe({
       next: (response) => {
-        this.isInThisUserList = false;
+        this.isInThisWatchedList = false;
         alert('Movie added to your Watched List');
       },
       error: (error) => {
-        this.isInThisUserList = true;
+        this.isInThisWatchedList = true;
         alert('Movie is already in your Watched list');
         console.error(error);
       }
@@ -81,11 +95,11 @@ export class MovieDetailsComponent implements OnInit {
   removeMovieFromWatchedList() {
     this.movieService.removeFromWatchedList(this.movieId, this.userId).subscribe({
       next: (response) => {
-        this.isInThisUserList = false;
+        this.isInThisWatchedList = false;
         alert('Movie removed from your Watched List');
       },
       error: (error) => {
-        this.isInThisUserList = true;
+        this.isInThisWatchedList = true;
         alert('Movie is not in your Watched List');
         console.error(error);
       }

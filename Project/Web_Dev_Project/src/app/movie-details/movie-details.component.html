@@ -14,16 +14,16 @@
   </div>
 
 <div>
-    <button (click)="addMovieToWatchList()" class="add_button">Add to watch-list</button>
-    <button (click)="removeMovieFromWatchList()" class="delete_button">Remove from watch-list</button>
+    <button *ngIf="!isInThisWatchList" (click)="addMovieToWatchList()" class="add_button">Add to watch-list</button>
+    <button *ngIf="isInThisWatchList" (click)="removeMovieFromWatchList()" class="delete_button">Remove from watch-list</button>
+</div>
+
+  <div>
+    <button *ngIf="!isInThisWatchedList" (click)="addMovieToWatchedList()" class="add_button">Add to watched-list</button>
+    <button *ngIf="isInThisWatchedList" (click)="removeMovieFromWatchedList()" class="delete_button">Remove from watched-list</button>
   </div>
 
   <div>
-    <button (click)="addMovieToWatchedList()" class="add_button">Add to watched-list</button>
-    <button (click)="removeMovieFromWatchedList()" class="delete_button">Remove from watched-list</button>
-  </div>
-
-  <div>
-    <button (click)="addMovieToPersonal()" class="add_button">Add to personal</button>
-    <button (click)="removeMovieFromPersonal()" class="delete_button">Remove from personal</button>
+    <button *ngIf="!isInThisPersonalList" (click)="addMovieToPersonal()" class="add_button">Add to personal</button>
+    <button *ngIf="isInThisPersonalList" (click)="removeMovieFromPersonal()" class="delete_button">Remove from personal</button>
   </div>
