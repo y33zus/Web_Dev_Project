@@ -17,7 +17,6 @@ export interface Recommendation{
 export interface Watch_list{
     user_id: number,
     movie_id: number,
-    movie: Movie
 }
 
 export interface Watched_list{
