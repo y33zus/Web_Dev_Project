@@ -39,7 +39,7 @@ urlpatterns = [
     path('watchlist/', WatchListView.as_view(), name='watchlist-list'),
     # NEW
     path('watchlist/<int:pk>/', WatchListView.as_view(), name='watchlist-detail'),
-    path('user/<int:user_id>/watchlist/', UserWatchListView.as_view(), name='user-watchlist'),
+    path('users/<int:user_id>/watchlist/', UserWatchListView.as_view(), name='user-watchlist'),
     
     path('watchedlist/', WatchedListView.as_view(), name='watchedlist-list'),
     path('personaltop/', PersonalTopView.as_view(), name='personaltop-list'),

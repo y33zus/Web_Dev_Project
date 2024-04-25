@@ -1,4 +1,6 @@
 from django.shortcuts import render, get_object_or_404
+from django.http import Http404
+from rest_framework.exceptions import PermissionDenied
 from django.contrib.auth import authenticate
 from rest_framework import status
 from rest_framework.views import APIView
@@ -178,14 +180,28 @@ class UserView(APIView):
 
 
 class WatchListView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
-    def get(self, request):
-        watchlist_items = WatchList.objects.filter(user=request.user).prefetch_related('movie')
-        serializer = WatchListSerializer(watchlist_items, many=True)
+    def get(self, request, pk=None):
+        if not request.user.is_authenticated:
+            return Response({'error': 'Authentication credentials were not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
+
+        if pk is None:
+            watchlist_items = WatchList.objects.filter(user=request.user).prefetch_related('movie')
+            serializer = WatchListSerializer(watchlist_items, many=True)
+        else:
+            try:
+                watchlist_item = WatchList.objects.get(user=request.user, pk=pk)
+                serializer = WatchListSerializer(watchlist_item)
+            except WatchList.DoesNotExist:
+                return Response({'error': 'Watchlist item not found'}, status=status.HTTP_404_NOT_FOUND)
+
         return Response(serializer.data)
 
-    def post(self, request):
+    def post(self, request, pk=None):
+        if pk is not None:
+            return Response({'error': 'POST request cannot include a pk.'}, status=status.HTTP_400_BAD_REQUEST)
+        
         serializer = WatchListSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             watchlist_item = serializer.save()
@@ -193,6 +209,9 @@ class WatchListView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
+        if not request.user.is_authenticated:
+            return Response({'error': 'Authentication credentials were not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
+
         try:
             watchlist_item = WatchList.objects.get(user=request.user, pk=pk)
             watchlist_item.delete()
@@ -202,12 +221,16 @@ class WatchListView(APIView):
 
 # NEW
 class UserWatchListView(ListAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     serializer_class = WatchListSerializer
 
     def get_queryset(self):
         user_id = self.kwargs.get('user_id')
-        queryset = WatchList.objects.filter(user_id=user_id).prefetch_related('movie')
+    
+        if not User.objects.filter(id=user_id).exists():
+            raise Http404("No such user")
+
+        return WatchList.objects.filter(user_id=user_id).prefetch_related('movie')
 
 '''
 class WatchListView(APIView):
@@ -261,19 +284,22 @@ class WatchedListView(APIView):
 
 
 class PersonalTopView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
-    # getting top from user
     def get(self, request):
-        personal_top_items = PersonalTop.objects.filter(user=request.user)
+        if request.user.is_authenticated:
+            personal_top_items = PersonalTop.objects.filter(user=request.user)
+        else:
+            return Response({'error': 'No user authenticated'}, status=status.HTTP_403_FORBIDDEN)
         serializer = PersonalTopSerializer(personal_top_items, many=True)
         return Response(serializer.data)
 
-    #adding new film into top
     def post(self, request):
+        if not request.user.is_authenticated:
+            return Response({'error': 'Authentication required'}, status=status.HTTP_403_FORBIDDEN)
+
         serializer = PersonalTopSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
-            # Checking if movie exists on current position
             movie_position = serializer.validated_data.get('movie_position')
             movie = serializer.validated_data.get('movie')
             personal_top_item, created = PersonalTop.objects.update_or_create(
@@ -287,7 +313,9 @@ class PersonalTopView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk=None):
-        # deliting movie by id
+        if not request.user.is_authenticated:
+            return Response({'error': 'Authentication required'}, status=status.HTTP_403_FORBIDDEN)
+
         if pk is not None:
             try:
                 personal_top_item = PersonalTop.objects.get(user=request.user, pk=pk)
@@ -296,6 +324,5 @@ class PersonalTopView(APIView):
             except PersonalTop.DoesNotExist:
                 return Response({'error': 'Top item not found'}, status=status.HTTP_404_NOT_FOUND)
         else:
-            # Deleting all top
             PersonalTop.objects.filter(user=request.user).delete()
             return Response({'message': 'All top items deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
