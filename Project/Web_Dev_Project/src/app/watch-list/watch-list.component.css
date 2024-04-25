@@ -1,0 +1,49 @@
+.watch-list-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .watch-list-container h2, .watch-list-container h3 {
+    color: #333;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+  }
+  
+  li img {
+    margin-right: 15px;
+  }
+  
+  button {
+    margin-left: auto;
+    padding: 5px 10px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  .add-movie-form input[type="number"] {
+    padding: 5px;
+    margin-right: 5px;
+  }
+  

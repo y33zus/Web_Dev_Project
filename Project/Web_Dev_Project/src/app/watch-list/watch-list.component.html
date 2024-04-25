@@ -1,6 +1,16 @@
-<p>watch-list works!</p>
-<!--<ul>   
-    <li *ngFor="let movie of movie">
-        {{ movie.Title }}, {{ movie.Year }}, {{ movie.Runtime }}>
-    </li>
-</ul>-->
+<div class="watch-list-container">
+    <h2>Your list to watch</h2>
+    <ul>
+      <li *ngFor="let item of watchList">
+        {{ item.movie.name }} ({{ item.movie.year_of_publishing }})
+        <button (click)="removeMovie(item.movie.id)">Remove from list</button>
+      </li>
+    </ul>
+  
+    <div class="add-movie-form">
+      <h3>Add movie to list</h3>
+      <input type="number" [(ngModel)]="movie_id" placeholder="Movie id">
+      <button (click)="addMovie(movie_id)">Add a movie</button>
+    </div>
+  </div>
+  

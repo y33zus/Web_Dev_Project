@@ -4,6 +4,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.generics import ListAPIView
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -181,7 +182,6 @@ class WatchListView(APIView):
 
     def get(self, request):
         watchlist_items = WatchList.objects.filter(user=request.user).prefetch_related('movie')
-        # Теперь сериализуем items вручную для представления
         serializer = WatchListSerializer(watchlist_items, many=True)
         return Response(serializer.data)
 
@@ -199,6 +199,15 @@ class WatchListView(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
         except WatchList.DoesNotExist:
             return Response({'error': 'Watchlist item not found'}, status=status.HTTP_404_NOT_FOUND)
+
+# NEW
+class UserWatchListView(ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = WatchListSerializer
+
+    def get_queryset(self):
+        user_id = self.kwargs.get('user_id')
+        queryset = WatchList.objects.filter(user_id=user_id).prefetch_related('movie')
 
 '''
 class WatchListView(APIView):

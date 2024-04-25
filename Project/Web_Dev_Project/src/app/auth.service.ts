@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Token } from '../../models';
+import { jwtDecode } from 'jwt-decode';
+
 
 
 /** NEW VERSION */
@@ -33,6 +35,16 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem(this.tokenKey);
+  }
+
+  // NEW
+  getCurrentUserId(): number | null {
+    const token = this.getToken();
+    if (token) {
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken.user_id; // Измените 'user_id' на ключ, по которому в вашем токене хранится идентификатор пользователя
+    }
+    return null;
   }
 }
 

@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from movie_app.views import WatchListView, WatchedListView, PersonalTopView, movie_list, movie_detail, UserListView, UserDetailView, custom_login
+from movie_app.views import WatchListView, WatchedListView, PersonalTopView, movie_list, movie_detail, UserListView, UserDetailView, custom_login, UserWatchListView
 
 
 # jwt 
@@ -37,6 +37,10 @@ urlpatterns = [
     #UPDATED
     # views
     path('watchlist/', WatchListView.as_view(), name='watchlist-list'),
+    # NEW
+    path('watchlist/<int:pk>/', WatchListView.as_view(), name='watchlist-detail'),
+    path('user/<int:user_id>/watchlist/', UserWatchListView.as_view(), name='user-watchlist'),
+    
     path('watchedlist/', WatchedListView.as_view(), name='watchedlist-list'),
     path('personaltop/', PersonalTopView.as_view(), name='personaltop-list'),
     
