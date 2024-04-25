@@ -12,5 +12,8 @@
   </form>
 </ng-container>
 
-<ng-container *ngIf="logged"><h1>Oh zrya ya suda polez</h1>
+<ng-container *ngIf="logged">
+  <h1>Oh zrya ya suda polez</h1>
+  <!-- Добавляем кнопку для выхода -->
+  <button (click)="logout()">Logout</button>
 </ng-container>

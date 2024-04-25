@@ -140,4 +140,4 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',  # И другие необходимые бэкенды
 ]
 
-#AUTH_USER_MODEL = 'movie_app.User'
+AUTH_USER_MODEL = 'movie_app.User'
