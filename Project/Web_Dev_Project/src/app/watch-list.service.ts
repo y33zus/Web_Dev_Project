@@ -6,15 +6,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class WatchListService {
-  private apiUrl = 'http://localhost:8000/api';  // Адаптируйте URL под ваш бэкенд
+  private apiUrl = 'http://localhost:8000/api'; 
 
   constructor(private http: HttpClient) { }
 
-  addToWatchList(movieId: number, userId: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/watch-list/add`, { movieId, userId });
-  }
-
-  removeFromWatchList(movieId: number, userId: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/watch-list/remove/${userId}/${movieId}`);
+  getMovies(): Observable<any> {
+    return this.http.get(this.apiUrl);
   }
 }

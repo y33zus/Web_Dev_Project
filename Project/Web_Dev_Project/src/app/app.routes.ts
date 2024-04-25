@@ -19,5 +19,6 @@ export const routes: Routes = [
     {path: 'content', component: ContentComponent },
     {path: 'movies', component: MoviesComponent},
     {path: 'movies/:id', component: MovieDetailsComponent},
-    {path: 'logging-in', component: LoggingInComponent}
+    {path: 'logging-in', component: LoggingInComponent},
+    {path: '', component:HomeComponent}
 ];

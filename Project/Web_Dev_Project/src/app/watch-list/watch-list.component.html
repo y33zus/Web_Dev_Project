@@ -1,6 +1,6 @@
-<p>watch-list works!</p>
-<!--<ul>   
-    <li *ngFor="let movie of movie">
-        {{ movie.Title }}, {{ movie.Year }}, {{ movie.Runtime }}>
-    </li>
-</ul>-->
+<h1>Your watch-list, time to watch all this masterpieces!</h1>
+<div class="container-of-movies">
+    <div class="movie" *ngFor="let movie of movies">
+      <a [routerLink]="['/movies/', movie.id ]"><img src="{{ movie.photo }}" alt="Описание фильма"></a>
+    </div>
+  </div>
