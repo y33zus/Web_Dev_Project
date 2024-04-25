@@ -13,8 +13,16 @@ export class MovieService {
 
   constructor(private http: HttpClient) { }
 
-  isInThisList(movieId: number): Observable<boolean> {
-    return this.http.get<boolean>(`${this.apiUrl}/movies/${movieId}/is-in-watchlist`);
+  isInWatchList(movieId: number): Observable<boolean> {
+    return this.http.get<boolean>(`${this.watchUrl}${movieId}`);
+  }
+
+  isInWatchedList(movieId: number): Observable<boolean> {
+    return this.http.get<boolean>(`${this.watchedUrl}${movieId}`);
+  }
+
+  isInPersonalList(movieId: number): Observable<boolean> {
+    return this.http.get<boolean>(`${this.personalUrl}${movieId}`);
   }
 
   getMovies(): Observable<any> {
