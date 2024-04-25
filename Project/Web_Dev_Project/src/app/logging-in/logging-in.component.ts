@@ -41,7 +41,7 @@ export class LoggingInComponent implements OnInit {
           this.authService.saveToken(data.access);
         }
         this.logged = true;
-        this.router.navigate(['/']); // Перенаправляем пользователя на главную страницу
+        this.router.navigate(['']); // Перенаправляем пользователя на главную страницу
       },
       error: (error) => {
         console.error('Login failed:', error);

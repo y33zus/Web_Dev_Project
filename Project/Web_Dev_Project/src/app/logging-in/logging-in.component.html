@@ -1,4 +1,5 @@
-<p>logging-in works!</p>
+<h1 *ngIf="!logged">It ia time to login in the matrix</h1>
+<h1 *ngIf="logged">Neo you are in the matrix</h1>
 <ng-container *ngIf="!logged"> <form (ngSubmit)="login()">
     <div>
       <label for="phone_number">Phone number:</label>
@@ -8,12 +9,12 @@
       <label for="password">Password:</label>
       <input type="password" id="password" [(ngModel)]="password" name="password" required>
     </div>
-    <button type="submit">Login</button>
+    <button type="submit" class="add_button">Login</button>
   </form>
 </ng-container>
 
 <ng-container *ngIf="logged">
-  <h1>Oh zrya ya suda polez</h1>
+  <h3>If you want to leave press logout, we are always waiting for your comeback!</h3>
   <!-- Добавляем кнопку для выхода -->
-  <button (click)="logout()">Logout</button>
+  <button (click)="logout()" class="delete_button">Logout</button>
 </ng-container>

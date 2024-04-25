@@ -1,4 +1,4 @@
-<p>movie-details works!</p>
+<h1>You chose {{movie.name}}, great choice!</h1>
 <div class="movie-container">
     <div class="image-container">
       <img src="{{ movie.photo }}" alt="Изображение фильма">
@@ -14,6 +14,16 @@
   </div>
 
 <div>
-    <button (click)="addMovie()" class="add_button">Добавить в список</button>
-    <button (click)="removeMovie()" class="delete_button">Удалить из списка</button>
+    <button (click)="addMovieToWatchList()" class="add_button">Add to watch-list</button>
+    <button (click)="removeMovieFromWatchList()" class="delete_button">Remove from watch-list</button>
+  </div>
+
+  <div>
+    <button (click)="addMovieToWatchedList()" class="add_button">Add to watched-list</button>
+    <button (click)="removeMovieFromWatchedList()" class="delete_button">Remove from watched-list</button>
+  </div>
+
+  <div>
+    <button (click)="addMovieToPersonal()" class="add_button">Add to personal</button>
+    <button (click)="removeMovieFromPersonal()" class="delete_button">Remove from personal</button>
   </div>
