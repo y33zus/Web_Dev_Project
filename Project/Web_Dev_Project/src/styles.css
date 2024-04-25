@@ -1,1 +1,66 @@
-/* You can add global styles to this file, and also import other style files */
+.container {
+    display: flex; 
+    background-color:#2C343F;
+  }
+  
+  .item {
+    flex-grow: 1; 
+    color: aliceblue; 
+  }
+
+body {
+    background-color: #2C343F;
+    color: aliceblue;
+  }
+
+.add_button {
+    background-color: #00B021;
+    color: aliceblue;
+}
+
+.delete_button {
+    background-color: #F27405;
+    color: aliceblue;
+}
+
+.container-of-movies {
+    display: flex;
+    flex-wrap: wrap; /* Отменяет перенос элементов на новую строку */
+  }
+  
+  .movie {
+    flex: 0 0 22%; /* Определяет, как элементы распределяют доступное пространство */
+    margin-right: 10px; /* Добавляет небольшой отступ между изображениями */
+  }
+
+  .movie-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .image-container {
+    margin-right: 20px;
+  }
+  
+  .image-container img {
+    max-width: 200px;
+    height: auto;
+  }
+  
+  .details-container {
+    flex-grow: 1;
+  }
+  
+  .details-container h2 {
+    margin-top: 0;
+  }
+  
+  .details-container ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .details-container ul li {
+    margin-bottom: 5px;
+  }
